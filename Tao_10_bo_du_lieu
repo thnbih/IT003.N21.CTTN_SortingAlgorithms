@@ -1,0 +1,39 @@
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <random>
+
+int main()
+{
+    const int N = 1000000;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // Tạo dãy đã sắp xếp tăng dần
+    std::ofstream ofs("10bo.txt");
+    for (int i = 0; i < N; ++i) {
+        ofs << i << ' ';
+    }
+    ofs << '\n';
+
+    // Tạo dãy đã sắp xếp giảm dần
+    for (int i = N - 1; i >= 0; --i) {
+        ofs << i << ' ';
+    }
+    ofs << '\n';
+
+    // Tạo 8 dãy ngẫu nhiên
+    for (int i = 0; i < 8; ++i) {
+        std::vector<double> v(N);
+        std::generate(v.begin(), v.end(), gen);
+        std::shuffle(v.begin(), v.end(), gen);
+        for (double x : v) {
+            ofs << x << ' ';
+        }
+        ofs << '\n';
+    }
+
+    ofs.close();
+    std::cout << "Done\n";
+    return 0;
+}
