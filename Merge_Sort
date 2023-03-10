@@ -1,0 +1,37 @@
+void merge(vector<int>& arr, int left, int middle, int right)
+{
+    vector<int> left_array(middle - left + 1);
+    vector<int> right_array(right - middle);
+
+    for (int i = 0; i < left_array.size(); ++i)
+        left_array[i] = arr[left + i];
+
+    for (int i = 0; i < right_array.size(); ++i)
+        right_array[i] = arr[middle + 1 + i];
+
+    int i = 0, j = 0, k = left;
+    while (i < left_array.size() && j < right_array.size())
+    {
+        if (left_array[i] <= right_array[j])
+            arr[k++] = left_array[i++];
+        else
+            arr[k++] = right_array[j++];
+    }
+
+    while (i < left_array.size())
+        arr[k++] = left_array[i++];
+
+    while (j < right_array.size())
+        arr[k++] = right_array[j++];
+}
+
+void mergeSort(vector<int>& arr, int left, int right)
+{
+    if (left < right)
+    {
+        int middle = left + (right - left) / 2;
+        mergeSort(arr, left, middle);
+        mergeSort(arr, middle + 1, right);
+        merge(arr, left, middle, right);
+    }
+}
